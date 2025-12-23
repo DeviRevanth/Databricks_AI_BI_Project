@@ -10,7 +10,16 @@ USING (
     line_amount,
     payment_method,
     order_status
-  FROM ecommerce.bronze.orders
+  FROM (
+    SELECT
+      *,
+      ROW_NUMBER() OVER (
+        PARTITION BY order_id, product_id
+        ORDER BY order_ts DESC
+      ) AS rn
+    FROM ecommerce.bronze.orders
+  )
+  WHERE rn = 1
 ) AS src
 ON tgt.order_id = src.order_id
 AND tgt.product_id = src.product_id
