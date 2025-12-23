@@ -39,3 +39,13 @@ CREATE TABLE IF NOT EXISTS ecommerce.gold.cancellations_per_country (
 )
 USING DELTA
 LOCATION 's3://databricks-ai-bi-project/gold/cancellations_per_country';
+
+CREATE TABLE IF NOT EXISTS ecommerce.gold.revenue_per_product (
+  Product STRING,
+  Revenue DOUBLE
+)
+USING DELTA
+LOCATION 's3://databricks-ai-bi-project/gold/revenue_per_product';
+
+
+
